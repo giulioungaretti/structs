@@ -106,6 +106,11 @@ func (s *Struct) Map() map[string]interface{} {
 	return out
 }
 
+// LowerCaseMap converts the given struct to a map[string]interface{}, where the keys
+// of the map are the lower cased field names and the values of the map the associated
+// values of the fields.
+// Note that only exported fields of a struct can be accessed, non exported
+// fields will be neglected.
 func (s *Struct) LowerCaseMap() map[string]interface{} {
 	out := make(map[string]interface{})
 
