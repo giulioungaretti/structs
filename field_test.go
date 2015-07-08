@@ -12,7 +12,6 @@ type Foo struct {
 	C    bool   `json:"c"`
 	d    string // not exported
 	E    *Baz
-	x    string `xml:"x"` // not exported, with tag
 	Y    []string
 	Z    map[string]interface{}
 	*Bar // embedded
@@ -81,7 +80,7 @@ func TestField_Set(t *testing.T) {
 	}
 
 	if f.Value().(bool) {
-		t.Errorf("Setted value is wrong: %s want: %s", f.Value().(bool), false)
+		t.Errorf("Setted value is wrong: %v want: %v", f.Value().(bool), false)
 	}
 
 	// let's pass a different type
@@ -182,11 +181,6 @@ func TestField_Tag(t *testing.T) {
 	v = s.Field("d").Tag("json")
 	if v != "" {
 		t.Errorf("Field's tag value of a non exported field should return empty, got: %s", v)
-	}
-
-	v = s.Field("x").Tag("xml")
-	if v != "x" {
-		t.Errorf("Field's tag value of a non exported field with a tag should return 'x', got: %s", v)
 	}
 
 	v = s.Field("A").Tag("json")
